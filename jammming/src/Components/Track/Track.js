@@ -1,7 +1,7 @@
 import React from 'react';
 import './Track.css';
 
-export class Track extends Component {
+export class Track extends React.Component {
 
     renderAction() {
         if(this.props.isRemoval) {

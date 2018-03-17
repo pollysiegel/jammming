@@ -3,13 +3,24 @@ import './Track.css';
 
 class Track extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.addTrack = this.addTrack.bind(this);
+    }
+
     renderAction() {
         if(this.props.isRemoval) {
             return <span>-</span>
         } else {
-            return <span>+</span>
+            return <span onClick={this.addTrack}>+</span>
         }
     };
+
+    /* Add a new track to the Playlist through the function passed in */
+
+    addTrack() {
+        this.props.onAdd(this.props.track);
+    }
 
     render() {
         return (

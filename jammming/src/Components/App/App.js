@@ -20,8 +20,8 @@ class App extends React.Component {
                   album: 'The Moody Blues'
               }
           ],
-          playListName: 'My Playlist',
-          playListTracks: [
+          playlistName: 'My Playlist',
+          playlistTracks: [
               {name:'Hello',
                artist: 'You Guys',
                album: 'Goodbye'
@@ -31,7 +31,27 @@ class App extends React.Component {
               album: 'The Wall'}
               ]
       };
+      this.addTrack = this.addTrack.bind(this);
   }
+
+    addTrack(track) {
+
+      /* TODO: Ask about id property of track. I have no idea what they're talking about */
+
+      let i = 0;
+      let found = 0;
+      while (i < this.state.playlistTracks.length && !found) {
+          if (this.state.playlistTracks[i].name === track.name) {
+              found = 1;  /* Track is already in the playlist */
+          }
+      }
+
+      /* If track isn't in the playlist add it */
+
+      if (!found) {
+          this.state.playlistTracks.push(track);
+      }
+    }
 
   render() {
     return (
@@ -40,8 +60,8 @@ class App extends React.Component {
           <div className="App">
             <SearchBar />
             <div className="App-playlist">
-              <SearchResults searchResults={this.state.searchResults} />
-              <Playlist playListName={this.state.playListName} playListTracks={this.state.playListTracks} />
+              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
+              <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
             </div>
           </div>
       </div>

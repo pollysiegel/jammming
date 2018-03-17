@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/jammming/src/Components/App/App.js" afterPath="$PROJECT_DIR$/jammming/src/Components/App/App.js" />
       <change beforePath="$PROJECT_DIR$/jammming/src/Components/Playlist/Playlist.js" afterPath="$PROJECT_DIR$/jammming/src/Components/Playlist/Playlist.js" />
+      <change beforePath="$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.css" afterPath="$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.css" />
       <change beforePath="$PROJECT_DIR$/jammming/src/Components/SearchResults/SearchResults.js" afterPath="$PROJECT_DIR$/jammming/src/Components/SearchResults/SearchResults.js" />
       <change beforePath="$PROJECT_DIR$/jammming/src/Components/Track/Track.js" afterPath="$PROJECT_DIR$/jammming/src/Components/Track/Track.js" />
       <change beforePath="$PROJECT_DIR$/jammming/src/Components/TrackList/TrackList.js" afterPath="$PROJECT_DIR$/jammming/src/Components/TrackList/TrackList.js" />
@@ -22,21 +23,11 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jammming/src/Components/App/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="38" lean-forward="true" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
+            <state relative-caret-position="313">
+              <caret line="41" column="20" lean-forward="true" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jammming/public/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -53,21 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jamming.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jammming/public/jamming.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Playlist.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jammming/src/Components/Playlist/Playlist.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -80,6 +61,26 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-975">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchBar.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SearchBar.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -98,8 +99,8 @@
       <file leaf-file-name="SearchResults.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchResults/SearchResults.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state relative-caret-position="225">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -107,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Track.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Track.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jammming/src/Components/Track/Track.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="18" lean-forward="false" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+            <state relative-caret-position="165">
+              <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -119,11 +120,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TrackList.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TrackList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jammming/src/Components/TrackList/TrackList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="37" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+            <state relative-caret-position="240">
+              <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -151,17 +152,17 @@
       <list>
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/jammming/src/Components/App/App.css" />
-        <option value="$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.css" />
         <option value="$PROJECT_DIR$/jammming/src/Components/TrackList/TrackList.css" />
         <option value="$PROJECT_DIR$/jammming/src/Components/Track/Track.css" />
         <option value="$PROJECT_DIR$/jammming/src/Components/Playlist/Playlist.css" />
         <option value="$PROJECT_DIR$/jammming/src/index.js" />
         <option value="$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.js" />
-        <option value="$PROJECT_DIR$/jammming/src/Components/Track/Track.js" />
         <option value="$PROJECT_DIR$/jammming/src/Components/Playlist/Playlist.js" />
-        <option value="$PROJECT_DIR$/jammming/src/Components/App/App.js" />
+        <option value="$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.css" />
         <option value="$PROJECT_DIR$/jammming/src/Components/SearchResults/SearchResults.js" />
         <option value="$PROJECT_DIR$/jammming/src/Components/TrackList/TrackList.js" />
+        <option value="$PROJECT_DIR$/jammming/src/Components/App/App.js" />
+        <option value="$PROJECT_DIR$/jammming/src/Components/Track/Track.js" />
       </list>
     </option>
   </component>
@@ -254,6 +255,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Components" type="462c0819:PsiDirectoryNode" />
               <item name="Playlist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jammming" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jammming" type="462c0819:PsiDirectoryNode" />
+              <item name="jammming" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Components" type="462c0819:PsiDirectoryNode" />
+              <item name="SearchBar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jammming" type="b2602c69:ProjectViewProjectNode" />
@@ -418,7 +427,7 @@
       <updated>1521001828503</updated>
       <workItem from="1521001843554" duration="1464000" />
       <workItem from="1521062064881" duration="4018000" />
-      <workItem from="1521124361820" duration="6823000" />
+      <workItem from="1521124361820" duration="9112000" />
     </task>
     <task id="LOCAL-00001" summary="Commit of initial project files for jammming">
       <created>1521001921621</created>
@@ -441,11 +450,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521091575423</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Finished through step 39. Things finally work. (Had a problem when I used double-quotes instead of single quotes in initialization data.)">
+      <created>1521265809200</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1521265809200</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12305000" />
+    <option name="totallyTimeSpent" value="14594000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="189" y="23" width="1165" height="851" extended-state="0" />
@@ -491,7 +507,8 @@
     <MESSAGE value="Commit of initial project files for jammming" />
     <MESSAGE value="Initial components for jammming (through step 28)" />
     <MESSAGE value="Initial display of Jammming website (even if it doesn't do anything yet)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial display of Jammming website (even if it doesn't do anything yet)" />
+    <MESSAGE value="Finished through step 39. Things finally work. (Had a problem when I used double-quotes instead of single quotes in initialization data.)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished through step 39. Things finally work. (Had a problem when I used double-quotes instead of single quotes in initialization data.)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -510,14 +527,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="616">
           <caret line="51" column="1" lean-forward="false" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="1" lean-forward="false" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -543,16 +552,6 @@
         <state relative-caret-position="30">
           <caret line="2" column="1" lean-forward="false" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -614,27 +613,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jammming/src/Components/App/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="38" lean-forward="true" selection-start-line="22" selection-start-column="38" selection-end-line="22" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jammming/src/Components/Playlist/Playlist.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchResults/SearchResults.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
@@ -644,10 +623,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jammming/src/Components/Track/Track.js">
+    <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="18" lean-forward="false" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+        <state relative-caret-position="195">
+          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchBar/SearchBar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jammming/src/Components/SearchResults/SearchResults.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -656,8 +651,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jammming/src/Components/TrackList/TrackList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="37" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+        <state relative-caret-position="240">
+          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jammming/src/Components/App/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="41" column="20" lean-forward="true" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jammming/src/Components/Track/Track.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

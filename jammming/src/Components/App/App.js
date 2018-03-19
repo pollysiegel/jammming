@@ -32,11 +32,14 @@ class App extends React.Component {
           artist: 'Pink Floyd',
           album: 'The Wall'
         }
-      ]
+      ],
+      trackURIs: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
   }
 
   addTrack(track) {
@@ -78,6 +81,24 @@ class App extends React.Component {
     this.state.playlistName = name;
   }
 
+  /*
+   * TODO: This can't be correct. Save playlist should create a set of trackURIs from
+   * our playlist, but since we haven't yet connected to Spotify, my assumption is
+   * we'll connect this up later.  For now we'll just copy the playlistTracks to the
+   * trackURIs; what we really need to do is to do a Spotify lookup to find the trackURI for each
+   * element in our playlist.
+   */
+
+  savePlaylist() {
+    this.state.playlistTracks.map(track => {
+      this.trackURIs.push(track);
+    });
+  }
+
+  search(searchTerm) {
+    console.log(searchTerm);
+  }
+
   render() {
     return (
       <div>
@@ -85,9 +106,10 @@ class App extends React.Component {
           <div className="App">
             <SearchBar />
             <div className="App-playlist">
-              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+              <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onSearch={this.search} />
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}
-                        onRemove={this.removeTrack} onNameChange={this.updatePlaylistName}/>
+                onRemove={this.removeTrack} onNameChange={this.updatePlaylistName}
+                onSave={this.savePlaylist} />
             </div>
           </div>
       </div>

@@ -4,10 +4,11 @@ import './TrackList.css';
 
 class TrackList extends React.Component {
     render() {
+        console.log('TrackList is ' + this.props.tracks);
         return (
             <div className="TrackList">
                 {
-                    /* You will add a map method that renders a set of Track components */
+                    /* Renders a set of Track components */
                     this.props.tracks.map(track => {
                         console.log('the track is' + JSON.stringify(track));
                         return <Track track={track} onAdd={this.props.onAdd} />

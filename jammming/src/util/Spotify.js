@@ -29,32 +29,51 @@ let Spotify = {
       accessToken = accessTokenMatch[1];
       let expirationTime = expiresInMatch[1];
 
-      window.setTimeout(() => accessToken = '', expiresIn * 1000);
+      window.setTimeout(() => accessToken = '', expirationTime * 1000);
       window.history.pushState('Access Token', null, '/');
 
-      window.location.href = 'https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectUri}'
+      window.location.href = 'https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&scope=playlist-modify-public&redirect_uri=' + redirectUri;
     }
   },
 
   /*
-   * Find the tracks that the user has in their playlist
+   * Find the tracks that the user has in their playlist. Convert the Promise back into
+   * a JSON object, and then extract the relevant information out of it.
    */
   search(term) {
-    fetch('https://api.spotify.com/v1/search?type=track&q=${term}', {headers: {Authorization: 'Bearer ${accessToken}'}})
+    const fetchURL = 'https://api.spotify.com/v1/search?type=track&q=' + term;
+    const headerInfo = '{ headers: {Authorization: Bearer ' + accessToken + '}}';
+      fetch(fetchURL, headerInfo)
       .then(response => response.json()).then(jsonResponse => {
+        console.log(jsonResponse);
         if (!jsonResponse.tracks) {
           return [];
         }
 
-        return jsonResponse.tracks.items.map(track => ({
-          id: track.id,
-          name: track.name,
-          artist: track.artists[0].name,
-          album: track.album.name,
-          uri: track.uri
-        }));
+      /*
+       * Extract the track information we're interested in from the JSON response
+       */
 
+      return jsonResponse.tracks.items.map(track => ({
+        id: track.id,
+        name: track.name,
+        artist: track.artists[0].name,
+        album: track.album.name,
+        uri: track.uri
+      }));
     });
+  },
+
+  savePlaylist(playlistName, tracks) {
+    if (!playlistName || !tracks) {
+      console.log("Error in savePlaylist -- ");
+      if (!playlistName) {
+        console.log("Playlist name not set");
+      } else {
+        console.log("No tracks");
+      }
+      return(false);
+    }
   }
 };
 

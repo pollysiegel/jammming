@@ -28,6 +28,13 @@ class App extends React.Component {
       playlistName: 'My Playlist',
       playlistTracks: [
         {
+          id: 2,
+          name: 'Your Song',
+          artist: 'Moody Blues',
+          album: 'The Moody Blues',
+          uri: ''
+        },
+        {
           id: 3,
           name:'Hello',
           artist: 'You Guys',
@@ -53,40 +60,50 @@ class App extends React.Component {
 
   addTrack(track) {
 
-    /* TODO: Ask about id property of track. I have no idea what they're talking about */
 
-    let i = 0;
-    let found = 0;
+    let found = false;
     console.log('looking for track ' + track.name);
 
-    while (i < this.state.playlistTracks.length && !found) {
+    for (let i = 0; i < this.state.playlistTracks.length; i++) {
       console.log('In addTrack ' + this.state.playlistTracks[i].name );
-      if (this.state.playlistTracks[i].name === track.name) {
-        found = 1;  /* Track is already in the playlist */
+      if (this.state.playlistTracks[i].id === track.id) {
+        found = true;
+        break;
       }
-      i++;
     }
 
     /* If track isn't in the playlist add it */
 
     if (!found) {
+      console.log('Adding ' + JSON.stringify(track) + ' to the playlist');
+      console.log('Playlist is ' + JSON.stringify(this.state.playlistTracks));
       this.state.playlistTracks.push(track);
+      console.log('Modified playlist is ' + JSON.stringify(this.state.playlistTracks));
+
+    } else {
+      console.log('Track ' + track.name + ' is already in the playlist. Skipping');
     }
   }
 
+  /*
+   * Remove track.  It should be found.
+   */
+
   removeTrack(track) {
-    let i = 0;
-    let found = 0;
-    while (i < this.state.playlistTracks.length && !found) {
-      if (this.state.playlistTracks[i].name === track.name) {
-        found = 1;  /* Track is already in the playlist */
+
+    let found = false;
+
+    console.log('Removing track ' + track.name + ' ' + track.id);
+    for (let i = 0; i < this.state.playlistTracks.length; i++) {
+      if (this.state.playlistTracks[i].id === track.id) {
+        console.log('Removing track ' + track.name + ' ' + track.id);
+        this.state.playlistTracks.splice(i, 1);
+        found = true;
+        break;
       }
     }
-
-    /* If we find the track in our playlist, remove it from the playlist */
-
-    if (found) {
-      this.state.playlistTracks.splice(i, 1);
+    if (!found) {
+      console.log('In removeTrack, did not find ' + track.name);
     }
   }
 

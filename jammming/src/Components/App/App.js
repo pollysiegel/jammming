@@ -11,14 +11,14 @@ class App extends React.Component {
     super(props);
     this.state =  {
       searchResults: [{
-          id: '',
+          id: 1,
           name: 'My Song',
           artist: 'Elton John',
           album: 'Madman Across the Water',
           uri: ''
         },
         {
-          id: '',
+          id: 2,
           name: 'Your Song',
           artist: 'Moody Blues',
           album: 'The Moody Blues',
@@ -28,14 +28,14 @@ class App extends React.Component {
       playlistName: 'My Playlist',
       playlistTracks: [
         {
-          id: '',
+          id: 3,
           name:'Hello',
           artist: 'You Guys',
           album: 'Goodbye',
           uri: ''
         },
         {
-          id: '',
+          id: 4,
           name: 'Another brick in the wall',
           artist: 'Pink Floyd',
           album: 'The Wall',

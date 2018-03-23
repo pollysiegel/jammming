@@ -15,14 +15,14 @@ class App extends React.Component {
           name: 'My Song',
           artist: 'Elton John',
           album: 'Madman Across the Water',
-          uri: ''
+          uri: 'https://www.spotify.com'
         },
         {
           id: 2,
           name: 'Your Song',
           artist: 'Moody Blues',
           album: 'The Moody Blues',
-          uri: ''
+          uri: 'https://www.spotify.com'
         }
       ],
       playlistName: 'My Playlist',
@@ -32,21 +32,21 @@ class App extends React.Component {
           name: 'Your Song',
           artist: 'Moody Blues',
           album: 'The Moody Blues',
-          uri: ''
+          uri: 'https://www.spotify.com'
         },
         {
           id: 3,
           name:'Hello',
           artist: 'You Guys',
           album: 'Goodbye',
-          uri: ''
+          uri: 'https://www.spotify.com'
         },
         {
           id: 4,
           name: 'Another brick in the wall',
           artist: 'Pink Floyd',
           album: 'The Wall',
-          uri: ''
+          uri: 'https://www.spotify.com'
         }
       ],
       trackUris: []
@@ -125,14 +125,14 @@ class App extends React.Component {
    */
 
   savePlaylist() {
-    this.state.playlistTracks.map(track => {
-      return(this.trackUris.push(track));
-    });
+    console.log('Saving Playlist');
+    this.state.playlistTracks.map(track => this.state.trackUris.push(track.uri));
   }
 
   search(searchTerm) {
-    /* this.setState({ searchResults: Spotify.search(searchTerm) }); */
-    console.log('searching ' + searchTerm)
+    this.setState({ searchResults: Spotify.search(searchTerm) });
+    console.log('searching ' + searchTerm);
+    console.log(JSON.stringify(this.state.searchResults));
   }
 
   render() {

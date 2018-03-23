@@ -7,7 +7,7 @@
 const clientId = '698f6e3c806a4a929806c95270ef2c01';
 const redirectUri = 'http://localhost:50543/';  /* port # of my locally running Jammming instance */
 const state = '4432'; /* TODO: Generate and store a random state value, but for now this will do */
-const fetchAccessTokenURL = 'https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&redirect_uri=' + redirectUri;
+const fetchAccessTokenURL = 'https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&redirect_uri=' + redirectUri + '&state=' + state;
 
 let accessToken = '';
 
@@ -19,9 +19,6 @@ let Spotify = {
    */
 
   getAccessToken() {
-
-    const headerInfo = { method: 'GET', mode: 'no-cors' }; /* Avoid CORS error */
-
 
     /* If we already have an access token, let's use it */
 
@@ -37,18 +34,22 @@ let Spotify = {
      * access token and expiration time.
      */
 
-    const accessTokenMatch = window.location.href.match('/access_token=([^&]*)/');
-    const expiresInMatch = window.location.href.match('/expires_in=([^&]*)/');
-    const returnedState = window.location.href.match('/state=([^&]*)/');
+    const returnURL = window.location.href;
+    const accessTokenMatch = returnURL.match(/access_token=([^&]*)/);
+    const expiresInMatch = returnURL.match(/expires_in=([^&]*)/);
+    const returnedState = returnURL.match(/state=([^&]*)/);
 
-    console.log('accessTokenMatch is ' + accessTokenMatch);
-    console.log('access token is' + accessToken);
-
-    if (accessTokenMatch && expiresInMatch) {
+    /*
+     * Check to see that we got both an access token and expiration time, as well as
+     * check the state against returned state to make sure it matches (for security)
+     * our original setting.
+     */
+    if (accessTokenMatch && expiresInMatch && (returnedState === state)) {
 
       let expirationTime = expiresInMatch[1];
       accessToken = accessTokenMatch[1];
       console.log('expiration time is ' + expirationTime);
+      console.log('accessToken is ' + accessToken);
 
       window.setTimeout(() => accessToken = '', expirationTime * 1000);
       window.history.pushState('Access Token', null, '/');
@@ -76,7 +77,12 @@ let Spotify = {
    */
   search(term) {
 
-    if ((accessToken = this.getAccessToken())) {
+    /*
+     * Get the access token or force reauthorization
+     */
+    accessToken = this.getAccessToken();
+
+    if (accessToken) {
 
       const fetchURL = 'https://api.spotify.com/v1/search?type=track&q=' + term;
       const headerInfo = {headers: {Authorization: 'Bearer ' + accessToken}};

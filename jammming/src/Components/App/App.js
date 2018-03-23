@@ -58,6 +58,10 @@ class App extends React.Component {
     this.search = this.search.bind(this);
   }
 
+  /*
+   * Add a track to the playlist if it isn't already in the playlist
+   */
+
   addTrack(track) {
 
 
@@ -86,7 +90,8 @@ class App extends React.Component {
   }
 
   /*
-   * Remove track.  It should be found.
+   * Remove track from the playlist. Because we're selecting from
+   * tracks within the playlist, it will always be found.
    */
 
   removeTrack(track) {
@@ -97,7 +102,7 @@ class App extends React.Component {
     for (let i = 0; i < this.state.playlistTracks.length; i++) {
       if (this.state.playlistTracks[i].id === track.id) {
         console.log('Removing track ' + track.name + ' ' + track.id);
-        this.state.playlistTracks.splice(i, 1);
+        this.state.playlistTracks.splice(i, 1);  /* remove the track */
         found = true;
         break;
       }
@@ -140,7 +145,7 @@ class App extends React.Component {
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}
                 onRemove={this.removeTrack} onNameChange={this.updatePlaylistName}
-                onSave={this.savePlaylist} />
+                onSave={this.savePlaylist}  />
             </div>
           </div>
       </div>

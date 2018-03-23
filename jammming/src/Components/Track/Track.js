@@ -11,9 +11,14 @@ class Track extends React.Component {
     }
 
     renderAction() {
-        if(this.props.isRemoval) {
+        /*
+         * Either removeTrack or addTrack will be set by the parent, not both.
+         */
+        if(this.props.onRemove) {
+            console.log("Remove Track");
             return <span onClick={this.removeTrack}>-</span>
         } else {
+            console.log("Add Track");
             return <span onClick={this.addTrack}>+</span>
         }
     };

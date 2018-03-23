@@ -129,9 +129,11 @@ class App extends React.Component {
   }
 
   search() {
-      console.log('searching ' + this.state.searchTerm);
-      this.setState({ searchResults: Spotify.search(this.state.searchTerm) });
-    console.log(JSON.stringify(this.state.searchResults));
+    console.log('searching ' + this.state.searchTerm);
+    this.setState({ searchResults: Spotify.search(this.state.searchTerm) });
+    console.log('After searching, search Results are ' + this.state.searchResults);
+    this.render();  /* Render the new set of results */
+
   }
 
   render() {

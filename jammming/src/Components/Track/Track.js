@@ -14,11 +14,9 @@ class Track extends React.Component {
         /*
          * Either removeTrack or addTrack will be set by the parent, not both.
          */
-        if(this.props.onRemove) {
-            console.log("Remove Track");
+        if (this.props.onRemove) {
             return <span onClick={this.removeTrack}>-</span>
         } else {
-            console.log("Add Track");
             return <span onClick={this.addTrack}>+</span>
         }
     };
@@ -26,12 +24,14 @@ class Track extends React.Component {
     /* Add a new track to the Playlist through the function passed in */
 
     addTrack() {
+        console.log('Adding track');
         this.props.onAdd(this.props.track);
     }
 
     /* Remove this track from the playlist */
 
     removeTrack() {
+        console.log('Removing track');
         this.props.onRemove(this.props.track);
     }
 

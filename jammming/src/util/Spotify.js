@@ -96,31 +96,48 @@ let Spotify = {
 
     if (accessToken) {
 
-      const fetchURL = 'https://api.spotify.com/v1/search?type=track&q=' + term;
+      const fetchURL = 'https://api.spotify.com/v1/search?type=track&limit=10&q=' + term;
       const headerInfo = {headers: {Authorization: 'Bearer ' + accessToken}};
 
-      console.log('Asking for a search Promise for ', JSON.stringify(term), ' fetchURL is ' + fetchURL + 'headerInfo is ' + JSON.stringify(headerInfo));
+      console.log('Asking for a search Promise for ', JSON.stringify(term), ' fetchURL is ' + fetchURL + ' HeaderInfo is ' + JSON.stringify(headerInfo));
       fetch(fetchURL, headerInfo)
-        .then(response => response.json()).then(jsonResponse => {
-          console.log('In Spotify search');
-          console.log(jsonResponse);
-          if (!jsonResponse.tracks) {
-            return [];
+        .then(
+           response =>  {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Search request response failed!');
+          }, networkError => console.log(networkError.message)
+        ) /* end then */
+        .then(
+          jsonResponse => {
+              console.log('In Spotify search');
+              console.log(JSON.stringify(jsonResponse));
+              if (!jsonResponse.tracks) {
+                  return [];
+              } else {
+                  /*
+                  * Extract the track information we're interested in from the JSON response
+                  */
+                  console.log('Returning JSON objects from search');
+
+                  let newTracks = jsonResponse.tracks.items.map(track => {
+                      return {
+                          id: track.id,
+                          name: track.name,
+                          artist: track.artists[0].name,
+                          album: track.album.name,
+                          uri: track.uri
+                      }
+                  });
+
+                  console.log('New tracks are ' + JSON.stringify(newTracks));
+                  return(newTracks);
+              }
           }
-
-          /*
-           * Extract the track information we're interested in from the JSON response
-           */
-
-          return jsonResponse.tracks.items.map(track => ({
-            id: track.id,
-            name: track.name,
-            artist: track.artists[0].name,
-            album: track.album.name,
-            uri: track.uri
-        }));
-      });
-    } else {
+        ) /* then */
+    }
+    else {
       console.log('Cannot get access token in search');
       return(false);
     }

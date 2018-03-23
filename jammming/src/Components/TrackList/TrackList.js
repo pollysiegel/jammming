@@ -4,17 +4,27 @@ import './TrackList.css';
 
 class TrackList extends React.Component {
   render() {
-    return (
-      <div className="TrackList">
-        {
-          /* Renders a set of Track components */
-          this.props.tracks.map(track => {
-            console.log('the track is' + JSON.stringify(track.name));
-            return <Track track={track} onAdd={this.props.onAdd} onRemove={this.props.onRemove} key={track.id} />
-          })
-        }
-      </div>
-    );
+    console.log('In TrackList, tracks is ' + JSON.stringify(this.props.tracks));
+    if (this.props.tracks) {
+      return (
+        <div className="TrackList">
+          {
+            /* Renders a set of Track components */
+            this.props.tracks.map(track => {
+              return (
+                <Track track={track} onAdd={this.props.onAdd} onRemove={this.props.onRemove}
+                         key={track.id} />
+              );
+            })
+          }
+        </div>
+      );
+    } else {
+        return (
+            <div>No tracks to display</div>
+        );
+
+    }
   }
 }
 

@@ -19,6 +19,7 @@ class Playlist extends React.Component {
 
 
   render() {
+    console.log('In Playlist, tracks are ' + JSON.stringify(this.props.playlistTracks));
     return (
       <div className="Playlist">
         <input defaultValue={'New Playlist'} onChange={this.handleNameChange} />

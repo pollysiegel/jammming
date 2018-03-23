@@ -99,7 +99,7 @@ let Spotify = {
       const fetchURL = 'https://api.spotify.com/v1/search?type=track&q=' + term;
       const headerInfo = {headers: {Authorization: 'Bearer ' + accessToken}};
 
-      console.log('Asking for a search Promise, fetchURL is ' + fetchURL + 'headerInfo is ' + JSON.stringify(headerInfo));
+      console.log('Asking for a search Promise for ', JSON.stringify(term), ' fetchURL is ' + fetchURL + 'headerInfo is ' + JSON.stringify(headerInfo));
       fetch(fetchURL, headerInfo)
         .then(response => response.json()).then(jsonResponse => {
           console.log('In Spotify search');

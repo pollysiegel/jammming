@@ -7,7 +7,7 @@
 const clientId = '698f6e3c806a4a929806c95270ef2c01';
 const redirectUri = 'http://localhost:50543/';  /* port # of my locally running Jammming instance */
 const state = '4432'; /* TODO: Generate and store a random state value, but for now this will do */
-const fetchAccessTokenURL = 'https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&redirect_uri=' + redirectUri + '&state=' + state;
+const fetchAccessTokenURL = 'https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&scope=playlist-modify-public&redirect_uri=' + redirectUri + '&state=' + state;
 
 let accessToken = '';
 
@@ -37,14 +37,27 @@ let Spotify = {
     const returnURL = window.location.href;
     const accessTokenMatch = returnURL.match(/access_token=([^&]*)/);
     const expiresInMatch = returnURL.match(/expires_in=([^&]*)/);
+    /*
+     * TODO: Get state checking to work
+     *
     const returnedState = returnURL.match(/state=([^&]*)/);
+
+
+    let newState = returnedState[1];
+
+    if (newState === state) {
+      console.log('Returned state matches');
+    } else {
+      console.log('Returned state doesnt match');
+    }
+    */
 
     /*
      * Check to see that we got both an access token and expiration time, as well as
      * check the state against returned state to make sure it matches (for security)
      * our original setting.
      */
-    if (accessTokenMatch && expiresInMatch && (returnedState === state)) {
+    if (accessTokenMatch && expiresInMatch) {
 
       let expirationTime = expiresInMatch[1];
       accessToken = accessTokenMatch[1];
@@ -53,6 +66,7 @@ let Spotify = {
 
       window.setTimeout(() => accessToken = '', expirationTime * 1000);
       window.history.pushState('Access Token', null, '/');
+      return (accessToken);
 
     } else {
 
@@ -66,8 +80,6 @@ let Spotify = {
       console.log('Fetching access token from ' + fetchAccessTokenURL);
 
     }
-
-    return (accessToken);
 
   },
 

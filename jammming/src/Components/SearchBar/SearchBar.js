@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
     }
 
     /*
-     * Set new search term
+     * Search when the user clicks Search
      */
 
     search(newSearchTerm) {
@@ -18,18 +18,18 @@ class SearchBar extends React.Component {
     }
 
     /*
-     * When someone enters a new search term, we want to change the search term
-     * through the search method.
+     * When someone enters a new search term, store it. Since we're storing every key
+     * stroke, continue to store the search term each time this routine is called.
      */
     handleTermChange(event) {
-        this.search(event.target.value);
+        this.props.onSearchTermChange(event.target.value);
     }
 
     render() {
         return (
             <div className="SearchBar">
                 <input placeholder="Enter A Song, Album, or Artist" onChange={this.handleTermChange} />
-                <a>SEARCH</a>
+                <a onClick={this.search}>SEARCH</a>
             </div>
         )
     }

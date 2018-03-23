@@ -18,7 +18,9 @@ let Spotify = {
    * Retrieve an access token from Spotify
    */
 
-  async getAccessToken() {
+  getAccessToken() {
+
+    const headerInfo = { method: 'GET', mode: 'no-cors' }; /* Avoid CORS error */
 
 
     /* If we already have an access token, let's use it */
@@ -36,13 +38,13 @@ let Spotify = {
 
 
     console.log('Fetching access token from ' + fetchAccessTokenURL);
-    await fetch(fetchAccessTokenURL)
+    fetch(fetchAccessTokenURL, headerInfo)
       .then(response => {
         console.log('Looking at response from getAccessToken');
         if (response.ok) {
           return response.json();
         }
-        throw new Error('Request Failed');
+        throw new Error ('Request failed ' + JSON.stringify(response));
       }, networkError => {console.log(networkError.message);})
       .then(jsonResponse => {
         console.log('Response is okay ', JSON.stringify(jsonResponse));
@@ -81,7 +83,7 @@ let Spotify = {
 
     this.getAccessToken();
     const fetchURL = 'https://api.spotify.com/v1/search?type=track&q=' + term;
-    const headerInfo = '{ headers: {Authorization: Bearer ' + accessToken + '}}';
+    const headerInfo = { headers: {Authorization: 'Bearer ' + accessToken}};
 
       console.log('Asking for a search Promise, fetchURL is ' + fetchURL + 'headerInfo is ' + JSON.stringify(headerInfo));
       fetch(fetchURL, headerInfo)

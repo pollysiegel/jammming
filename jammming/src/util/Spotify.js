@@ -25,7 +25,7 @@ let Spotify = {
     console.log('Access Token in getAccessToken is ' + accessToken);
 
     if (accessToken) {
-      console.log('Access Token found: ' + accessToken);
+     /* console.log('Access Token found: ' + accessToken); */
       return (accessToken);
     }
 
@@ -87,7 +87,7 @@ let Spotify = {
    * Find the tracks that the user has in their playlist. Convert the Promise back into
    * a JSON object, and then extract the relevant information out of it.
    */
-  search(term) {
+   async search(term) {
 
     /*
      * Get the access token or force reauthorization
@@ -100,9 +100,9 @@ let Spotify = {
       const headerInfo = {headers: {Authorization: 'Bearer ' + accessToken}};
 
       console.log('Asking for a search Promise for ', JSON.stringify(term), ' fetchURL is ' + fetchURL + ' HeaderInfo is ' + JSON.stringify(headerInfo));
-      fetch(fetchURL, headerInfo)
+      await fetch(fetchURL, headerInfo)
         .then(
-           response =>  {
+            response =>  {
             if (response.ok) {
               return response.json();
             }
@@ -110,7 +110,7 @@ let Spotify = {
           }, networkError => console.log(networkError.message)
         ) /* end then */
         .then(
-          jsonResponse => {
+           jsonResponse => {
               console.log('In Spotify search');
               console.log(JSON.stringify(jsonResponse));
               if (!jsonResponse.tracks) {
@@ -119,20 +119,17 @@ let Spotify = {
                   /*
                   * Extract the track information we're interested in from the JSON response
                   */
-                  console.log('Returning JSON objects from search');
+                console.log('Returning JSON objects from search');
 
-                  let newTracks = jsonResponse.tracks.items.map(track => {
-                      return {
-                          id: track.id,
-                          name: track.name,
-                          artist: track.artists[0].name,
-                          album: track.album.name,
-                          uri: track.uri
-                      }
-                  });
-
-                  console.log('New tracks are ' + JSON.stringify(newTracks));
-                  return(newTracks);
+                return jsonResponse.tracks.items.map(track => {
+                  return {
+                    id: track.id,
+                    name: track.name,
+                    artist: track.artists[0].name,
+                    album: track.album.name,
+                    uri: track.uri
+                  }
+                });
               }
           }
         ) /* then */

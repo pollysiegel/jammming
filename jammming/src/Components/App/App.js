@@ -7,6 +7,7 @@ import './App.css';
 
 class App extends React.Component {
 
+
   constructor(props) {
     super(props);
     this.state =  {
@@ -130,13 +131,22 @@ class App extends React.Component {
 
   search() {
     console.log('searching ' + this.state.searchTerm);
-    this.setState({ searchResults: Spotify.search(this.state.searchTerm) });
-    console.log('After searching, search Results are ' + this.state.searchResults);
+    Spotify.search(this.state.searchTerm).then(results => this.setState({ searchResults: results}));
+    /* this.setState({ searchResults: Spotify.search(this.state.searchTerm) }); */
+    console.log('After searching, search Results are ' + JSON.stringify(this.state.searchResults));
     this.render();  /* Render the new set of results */
 
   }
 
   render() {
+
+    /*
+     * Get an access token if we don't already have one, because it will make the
+     * UI/UX so much better. Otherwise, the first time we perform a function we
+     * have to do it twice.
+     */
+
+
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>

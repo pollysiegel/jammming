@@ -4,7 +4,7 @@ import './TrackList.css';
 
 class TrackList extends React.Component {
   render() {
-    console.log('In TrackList, tracks is ' + JSON.stringify(this.props.tracks));
+    /* console.log('In TrackList, tracks is ' + JSON.stringify(this.props.tracks)); */
     if (this.props.tracks) {
       return (
         <div className="TrackList">

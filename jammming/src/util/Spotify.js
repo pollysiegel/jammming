@@ -87,7 +87,7 @@ let Spotify = {
    * Find the tracks that the user has in their playlist. Convert the Promise back into
    * a JSON object, and then extract the relevant information out of it.
    */
-   async search(term) {
+   search(term) {
 
     /*
      * Get the access token or force reauthorization
@@ -100,7 +100,7 @@ let Spotify = {
       const headerInfo = {headers: {Authorization: 'Bearer ' + accessToken}};
 
       console.log('Asking for a search Promise for ', JSON.stringify(term), ' fetchURL is ' + fetchURL + ' HeaderInfo is ' + JSON.stringify(headerInfo));
-      await fetch(fetchURL, headerInfo)
+      fetch(fetchURL, headerInfo)
         .then(
             response =>  {
             if (response.ok) {

@@ -5,7 +5,8 @@
  */
 
 const clientId = '698f6e3c806a4a929806c95270ef2c01';
-const redirectUri = 'http://localhost:50543/';  /* port # of my locally running Jammming instance */
+const redirectUri = 'http://coda.surge.sh';
+/* const redirectUri = 'http://localhost:50543/'; /* port # of my locally running Jammming instance */
 const fetchAccessTokenURL = 'https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&scope=playlist-modify-public&scope=user-read-private&redirect_uri=' + redirectUri;
 
 let accessToken = '';

@@ -127,17 +127,17 @@ let Spotify = {
     let userID = '';
     accessToken = Spotify.getAccessToken();
     const fetchUseridURL = 'https://api.spotify.com/v1/me';
-    const headerInfo = 'headers: {Authorization: Bearer ' + accessToken + '}';
+    const headerInfoGet = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'GET'};
+    const playlistPost = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'POST', body: JSON.stringify({'name': playlistName})}
 
-    console.log(headerInfo);
+    console.log(headerInfoGet);
 
     if (accessToken) {
       console.log('Saving playlist for ' + playlistName + ' with tracks ' + JSON.stringify(tracks) + accessToken);
+      console.log('Asking for a Promise for ', JSON.stringify(playlistName), ' fetchUseridURL is ' + fetchUseridURL + ' HeaderInfo is ' + JSON.stringify(headerInfoGet));
 
-      return fetch(fetchUseridURL, {
-        headerInfo,
-        method: 'GET'
-      }).then(
+
+        return fetch(fetchUseridURL, headerInfoGet).then(
           response =>  {
             if (response.ok) {
               console.log('Response is okay in savePlaylist');
@@ -162,12 +162,9 @@ let Spotify = {
               const setPlaylistURL = 'https://api.spotify.com/v1/users/' + userID + '/playlists?' + JSON.stringify(playlistName);
 
               console.log('Returning JSON objects from URL: ' + setPlaylistURL);
+              console.log('Posting to ' + playlistPost);
 
-              fetch(setPlaylistURL, {
-                  headerInfo,
-                  method: 'POST',
-                  data: JSON.stringify({'playlistName': playlistName})
-              })
+              fetch(setPlaylistURL, playlistPost)
                 .then (
                   response => {
                     console.log('Saved playlist to Spotify ' + playlistName);

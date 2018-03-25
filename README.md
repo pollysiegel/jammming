@@ -20,6 +20,6 @@ redirect URL to load.  Once it loads, everything will work.
 to doing this class were not structured in such a way as to allow you to do this project easily. I'd recommend that at the
 end of every "assessment" in the project, you have a description of the results that learners should be seeing. Some of
 the project steps are not constructed in a way that this is possible, so I'd recommend redoing the project so that each major "assessment" has a verifiable result that the learner can use to validate their code.
-I have more suggestions I'd be happy to discuss, so just contact me if you want to do so.
+I have more suggestions I'd be happy to discuss, so just contact me if you're interested.
 * Given the difficulty, I think you should slate two weeks for this project.
 * The advisors were fantastic!

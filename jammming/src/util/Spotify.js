@@ -205,6 +205,9 @@ let Spotify = {
                             }
                             throw new Error('savePlaylist request response failed!');
                           },
+                          jsonResponseSave => {
+                            return jsonResponsePlaylist;
+                          }
                         )
                     }
                   }

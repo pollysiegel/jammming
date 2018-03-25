@@ -127,17 +127,17 @@ let Spotify = {
     let userID = '';
     accessToken = Spotify.getAccessToken();
     const fetchUseridURL = 'https://api.spotify.com/v1/me';
-    const headerInfoGet = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'GET'};
-    const playlistPost = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'POST', body: JSON.stringify({'name': playlistName})}
+    const getUIDHeaderInfo = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'GET'};
+    const setPlaylistHeaderInfo = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'POST', body: JSON.stringify({'name': playlistName})}
 
-    console.log(headerInfoGet);
+    console.log(getUIDHeaderInfo);
 
     if (accessToken) {
       console.log('Saving playlist for ' + playlistName + ' with tracks ' + JSON.stringify(tracks) + accessToken);
-      console.log('Asking for a Promise for ', JSON.stringify(playlistName), ' fetchUseridURL is ' + fetchUseridURL + ' HeaderInfo is ' + JSON.stringify(headerInfoGet));
+      console.log('Asking for a Promise for ', JSON.stringify(playlistName), ' fetchUseridURL is ' + fetchUseridURL + ' HeaderInfo is ' + JSON.stringify(getUIDHeaderInfo));
 
 
-        return fetch(fetchUseridURL, headerInfoGet).then(
+        return fetch(fetchUseridURL, getUIDHeaderInfo).then(
           response =>  {
             if (response.ok) {
               console.log('Response is okay in savePlaylist');
@@ -162,9 +162,9 @@ let Spotify = {
               const setPlaylistURL = 'https://api.spotify.com/v1/users/' + userID + '/playlists?' + JSON.stringify(playlistName);
 
               console.log('Returning JSON objects from URL: ' + setPlaylistURL);
-              console.log('Posting to ' + playlistPost);
+              console.log('Header info is ' + setPlaylistHeaderInfo);
 
-              fetch(setPlaylistURL, playlistPost)
+              fetch(setPlaylistURL, setPlaylistHeaderInfo)
                 .then (
                   response => {
                     console.log('Saved playlist to Spotify ' + playlistName);
@@ -184,8 +184,20 @@ let Spotify = {
                       return '';
                     } else {
                       const playlistID = jsonResponsePlaylist.id;
-                      console.log('Getting tracks for ' + playlistName + ': ' +  playlistID);
+                      console.log('Setting tracks for ' + playlistName + ': ' +  playlistID);
+                      const setPlaylistTracksURL = 'https://api.spotify.com/v1/users/' + userID + '/playlists/' + playlistID + '/tracks';
+                      const setPlaylistTracksHeaderInfo = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'POST', body: JSON.stringify({'uris': tracks})};
 
+                      fetch(setPlaylistTracksURL, setPlaylistTracksHeaderInfo)
+                        .then(
+                          response => {
+                              if (response.ok) {
+                                  console.log('Response is okay in savePlaylist');
+                                  return response.json();
+                              }
+                              throw new Error('savePlaylist request response failed!');
+                          },
+                        )
                     }
                   }
                 )

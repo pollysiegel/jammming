@@ -11,38 +11,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state =  {
-      searchResults: [{
-          id: '7gCeodIXjhCLDWC5H1LOmT',
-          name: 'Your Song',
-          artist: 'Elton John',
-          album: 'Elton John',
-          uri: 'https://www.spotify.com'
-        },
-        {
-          id: '1T4iwEA2ySieXjWxjiMVWs',
-          name: 'Your Wildest Dreams',
-          artist: 'Moody Blues',
-          album: 'The Other Side of Life',
-          uri: 'https://www.spotify.com'
-        }
-      ],
+      searchResults: [],
       playlistName: 'My Playlist',
-      playlistTracks: [
-        {
-          id: '3kcaix8VptngsWoYDTqEN2',
-          name: 'The Story in Your Eyes',
-          artist: 'Moody Blues',
-          album: 'Every Good Boy Deserves Favour',
-          uri: 'https://www.spotify.com'
-        },
-        {
-          id: '7K6xMPtAjTuLPNlJMLf5bS',
-          name: 'Another Brick in the Wall, PT. 1',
-          artist: 'Pink Floyd',
-          album: 'The Wall',
-          uri: 'https://www.spotify.com'
-        }
-      ],
+      playlistTracks: [],
       trackUris: []
     };
     this.addTrack = this.addTrack.bind(this);
@@ -113,6 +84,7 @@ class App extends React.Component {
   updatePlaylistName(name) {
     this.setState({playlistName: name});
     console.log('updated play list name to ' + name + ': ' + JSON.stringify(this.state.playlistName));
+    this.render();
   }
 
   /*
@@ -126,17 +98,24 @@ class App extends React.Component {
   savePlaylist() {
     console.log('Saving Playlist named ' + this.state.playlistName);
     this.state.playlistTracks.map(track => this.state.trackUris.push(track.uri));
-    Spotify.savePlaylist(this.state.playlistName, this.state.tracks);
+    console.log('Tracks to save are ' + JSON.stringify(this.state.trackUris));
+    Spotify.savePlaylist(this.state.playlistName, this.state.trackUris)
+      .then(
+        this.updatePlaylistName('New Playlist'),
+        this.setState({searchResults: []})
+      )
+      .catch(err => console.log('Error in saving playlist:' + err));
     console.log('Playlist saved');
+    this.render();
   }
 
   search(searchTerm) {
     console.log('searching ' + searchTerm);
     Spotify.search(searchTerm)
       .then(results => this.setState({ searchResults: results}))
-      .catch(err => console.log('There was an error:' + err));
-    /* this.setState({ searchResults: Spotify.search(this.state.searchTerm) }); */
+      .catch(err => console.log('Error retrieving search results:' + err));
     console.log('After searching, search Results are ' + JSON.stringify(this.state.searchResults));
+    this.render();
   }
 
   render() {

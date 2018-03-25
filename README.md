@@ -7,7 +7,7 @@ Class project for codecademy building FE apps.  The app is deployed at http://co
 * There is a problem with authentication.  You need to first do something (search or save playlist) to get the authorization 
 redirect URL to load.  Once it loads, everything will work.
 * I've added some code to display when there are no search results
-## Bugs that need to be fixed include:
+## Bugs that need to be fixed include
  * when you type something in, it should erase what's currently in the search box (for both search and save playlist
 
  

@@ -43,14 +43,12 @@ class App extends React.Component {
           uri: 'https://www.spotify.com'
         }
       ],
-      searchTerm: '',
       trackUris: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
-    this.updateSearchTerm = this.updateSearchTerm.bind(this);
     this.search = this.search.bind(this);
   }
 
@@ -68,6 +66,7 @@ class App extends React.Component {
       console.log('In addTrack ' + this.state.playlistTracks[i].name );
       if (this.state.playlistTracks[i].id === track.id) {
         found = true;
+        this.render();
         break;
       }
     }
@@ -83,11 +82,12 @@ class App extends React.Component {
     } else {
       console.log('Track ' + track.name + ' is already in the playlist. Skipping');
     }
+
   }
 
   /*
    * Remove track from the playlist. Because we're selecting from
-   * tracks within the playlist, it will always be found.
+   * tracks within the playlist, the track to be removed will always be found.
    */
 
   removeTrack(track) {
@@ -100,6 +100,8 @@ class App extends React.Component {
         console.log('Removing track ' + track.name + ' ' + track.id);
         this.state.playlistTracks.splice(i, 1);  /* remove the track */
         found = true;
+        this.render();
+
         break;
       }
     }
@@ -110,6 +112,7 @@ class App extends React.Component {
 
   updatePlaylistName(name) {
     this.setState({playlistName: name});
+    console.log('updated play list name to ' + name + ': ' + JSON.stringify(this.state.playlistName));
   }
 
   /*
@@ -121,21 +124,18 @@ class App extends React.Component {
    */
 
   savePlaylist() {
-    console.log('Saving Playlist');
+    console.log('Saving Playlist named ' + this.state.playlistName);
     this.state.playlistTracks.map(track => this.state.trackUris.push(track.uri));
+    Spotify.savePlaylist(this.state.playlistName, this.state.tracks);
+    console.log('Playlist saved');
   }
 
-  updateSearchTerm(newSearchTerm) {
-    this.setState({searchTerm: newSearchTerm});
-  }
-
-  search() {
-    console.log('searching ' + this.state.searchTerm);
-    Spotify.search(this.state.searchTerm)
+  search(searchTerm) {
+    console.log('searching ' + searchTerm);
+    Spotify.search(searchTerm)
       .then(results => this.setState({ searchResults: results}))
       .catch(err => console.log('There was an error:' + err));
     /* this.setState({ searchResults: Spotify.search(this.state.searchTerm) }); */
-    console.log(Spotify.search(this.state.searchTerm));
     console.log('After searching, search Results are ' + JSON.stringify(this.state.searchResults));
   }
 
@@ -152,7 +152,7 @@ class App extends React.Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
           <div className="App">
-            <SearchBar onSearch={this.search} onSearchTermChange={this.updateSearchTerm}/>
+            <SearchBar onSearch={this.search} />
             <div className="App-playlist">
               <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
               <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}

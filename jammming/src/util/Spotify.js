@@ -6,8 +6,7 @@
 
 const clientId = '698f6e3c806a4a929806c95270ef2c01';
 const redirectUri = 'http://localhost:50543/';  /* port # of my locally running Jammming instance */
-const state = '4432'; /* TODO: Generate and store a random state value, but for now this will do */
-const fetchAccessTokenURL = 'https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&scope=playlist-modify-public&redirect_uri=' + redirectUri + '&state=' + state;
+const fetchAccessTokenURL = 'https://accounts.spotify.com/authorize?client_id=' + clientId + '&response_type=token&scope=playlist-modify-public&scope=user-read-private&redirect_uri=' + redirectUri;
 
 let accessToken = '';
 
@@ -29,57 +28,40 @@ let Spotify = {
       return (accessToken);
     }
 
+
     /*
-     * See if we already have a token in our Callback URL, and parse out the
-     * access token and expiration time.
+     * Parse the token from our Callback URL, along with
+     * the expiration time.
      */
 
     const returnURL = window.location.href;
     const accessTokenMatch = returnURL.match(/access_token=([^&]*)/);
     const expiresInMatch = returnURL.match(/expires_in=([^&]*)/);
-    /*
-     * TODO: Get state checking to work
-     *
-    const returnedState = returnURL.match(/state=([^&]*)/);
 
-
-    let newState = returnedState[1];
-
-    if (newState === state) {
-      console.log('Returned state matches');
-    } else {
-      console.log('Returned state doesnt match');
-    }
-    */
-
-    /*
-     * Check to see that we got both an access token and expiration time, as well as
-     * check the state against returned state to make sure it matches (for security)
-     * our original setting.
-     */
     if (accessTokenMatch && expiresInMatch) {
 
       let expirationTime = expiresInMatch[1];
       accessToken = accessTokenMatch[1];
-      console.log('expiration time is ' + expirationTime);
-      console.log('accessToken is ' + accessToken);
 
-      window.setTimeout(() => accessToken = '', expirationTime * 1000);
+      window.setTimeout(() => accessToken = '', expirationTime * 10000);
       window.history.pushState('Access Token', null, '/');
       return (accessToken);
 
     } else {
-
       /*
        * No accessToken yet, so let's get one from Spotify. The user will
        * need to authenticate, and after authentication, the access token will
-       * be in the URL for when getAccessToken() is called again.
-       */
+       * be in the URL.
+      */
 
       window.location = fetchAccessTokenURL;
       console.log('Fetching access token from ' + fetchAccessTokenURL);
 
     }
+
+
+
+
 
   },
 
@@ -92,7 +74,7 @@ let Spotify = {
     /*
      * Get the access token or force reauthorization
      */
-    accessToken = this.getAccessToken();
+    accessToken = Spotify.getAccessToken();
 
     if (accessToken) {
 
@@ -100,10 +82,11 @@ let Spotify = {
       const headerInfo = {headers: {Authorization: 'Bearer ' + accessToken}};
 
       console.log('Asking for a search Promise for ', JSON.stringify(term), ' fetchURL is ' + fetchURL + ' HeaderInfo is ' + JSON.stringify(headerInfo));
-      fetch(fetchURL, headerInfo)
+      return fetch(fetchURL, headerInfo)
         .then(
             response =>  {
             if (response.ok) {
+              console.log('Response is okay in search');
               return response.json();
             }
             throw new Error('Search request response failed!');
@@ -135,28 +118,96 @@ let Spotify = {
         ) /* then */
     }
     else {
-      console.log('Cannot get access token in search');
-      return(false);
+      console.log('Failure to get access token in search');
     }
   },
 
   savePlaylist(playlistName, tracks) {
 
-    if((accessToken = this.getAccessToken())) {
-      if (!playlistName || !tracks) {
-        console.log("Error in savePlaylist -- ");
-        if (!playlistName) {
-          console.log("Playlist name not set");
-        } else {
-          console.log("No tracks");
-        }
-        return(false);
+    let userID = '';
+    accessToken = Spotify.getAccessToken();
+    const fetchUseridURL = 'https://api.spotify.com/v1/me';
+    const headerInfo = 'headers: {Authorization: Bearer ' + accessToken + '}';
+
+    console.log(headerInfo);
+
+    if (accessToken) {
+      console.log('Saving playlist for ' + playlistName + ' with tracks ' + JSON.stringify(tracks) + accessToken);
+
+      return fetch(fetchUseridURL, {
+        headerInfo,
+        method: 'GET'
+      }).then(
+          response =>  {
+            if (response.ok) {
+              console.log('Response is okay in savePlaylist');
+              return response.json();
+            }
+            throw new Error('savePlaylist request response failed!' + JSON.stringify(response));
+          }, networkError => console.log(networkError.message)
+        ) /* end then */
+        .then(
+          jsonResponse => {
+            console.log('In Spotify savePlaylist');
+            console.log(JSON.stringify(jsonResponse));
+            if (!jsonResponse.id) {
+              console.log('Did not receive an ID from savePlaylist');
+              return '';
+            } else {
+              /*
+               * Save the new playlist name first, then save the tracks.
+               */
+
+              userID=jsonResponse.id;
+              const setPlaylistURL = 'https://api.spotify.com/v1/users/' + userID + '/playlists?' + JSON.stringify(playlistName);
+
+              console.log('Returning JSON objects from URL: ' + setPlaylistURL);
+
+              fetch(setPlaylistURL, {
+                  headerInfo,
+                  method: 'POST',
+                  data: JSON.stringify({'playlistName': playlistName})
+              })
+                .then (
+                  response => {
+                    console.log('Saved playlist to Spotify ' + playlistName);
+                    if (response.ok) {
+                      console.log('Response is okay in savePlaylist');
+                      return response.json();
+                    }
+                    throw new Error('savePlaylist request response failed!');
+                  }, networkError => console.log(networkError.message)
+                )
+                .then(
+                  jsonResponsePlaylist => {
+                    console.log('In Spotify savePlaylist, saving tracks ');
+                    console.log(JSON.stringify(jsonResponsePlaylist));
+                    if (!jsonResponsePlaylist.id) {
+                      console.log('Did not receive a playlistID from Spotify');
+                      return '';
+                    } else {
+                      const playlistID = jsonResponsePlaylist.id;
+                      console.log('Getting tracks for ' + playlistName + ': ' +  playlistID);
+
+                    }
+                  }
+                )
+            }
+          }
+        ) /* then */
+    }
+    else {
+      console.log('Failure to get access token in savePlaylist');
+    }
+    if (!playlistName || !tracks) {
+      console.log("Error in savePlaylist -- ");
+      if (!playlistName) {
+        console.log("Playlist name not set");
+      } else {
+        console.log("No tracks");
       }
-    } else {
-      console.log('Access Token not set in savePlaylist');
       return(false);
     }
-
   }
 };
 

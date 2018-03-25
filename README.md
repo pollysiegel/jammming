@@ -17,9 +17,10 @@ redirect URL to load.  Once it loads, everything will work.
 
 # Notes for the course organizers
 * This project (and this class) was extremely frustrating. The instructions were unclear, and the material leading up
-to doing this class were not structured in such a way as to allow you to do this project easily. I'd recommend that at the
-end of every "assessment" in the project, you have a description of the results that learners should be seeing. Some of
-the project steps are not constructed in a way that this is possible, so I'd recommend redoing the project so that each major "assessment" has a verifiable result that the learner can use to validate their code.
+to doing this class were not structured in such a way as to allow you to do this project easily. New concepts were
+introduced within the project (like use of window), which makes one question "am I supposed to know this already"?  If you need to
+introduce something new or need us to type something in verbatim because we haven't yet learned it, then tell us that up front. Although better yet, we should be able to complete the project with things that we've learned (and practiced) in the class so far.
+I'd recommend that at the end of every "assessment" in the project, you have a description of the results that learners should be seeing. Some of the project steps are not constructed in a way that this is possible, so I'd recommend redoing the project so that each major "assessment" has a verifiable result that the learner can use to validate their code.
 I have more suggestions I'd be happy to discuss, so just contact me if you're interested.
 * Given the difficulty, I think you should slate two weeks for this project.
 * The advisors were fantastic!

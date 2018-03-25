@@ -21,9 +21,8 @@ class TrackList extends React.Component {
       );
     } else {
         return (
-            <div>No tracks to display</div>
+            <div className="TrackList">No tracks to display</div>
         );
-
     }
   }
 }

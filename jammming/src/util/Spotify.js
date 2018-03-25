@@ -15,23 +15,21 @@ let accessToken = '';
 let Spotify = {
 
   /*
-   * Retrieve an access token from Spotify
+   * Retrieve an access token from Spotify.
    */
 
   getAccessToken() {
 
     /* If we already have an access token, let's use it */
 
-    console.log('Access Token in getAccessToken is ' + accessToken);
-
     if (accessToken) {
-     /* console.log('Access Token found: ' + accessToken); */
       return (accessToken);
     }
 
 
     /*
-     * Parse the token from our Callback URL, along with
+     * We don't have an access token yet.
+     * Parse the token from our Callback URL, and get
      * the expiration time.
      */
 
@@ -44,6 +42,9 @@ let Spotify = {
       let expirationTime = expiresInMatch[1];
       accessToken = accessTokenMatch[1];
 
+      /*
+       * Set a long expiration time.
+       */
       window.setTimeout(() => accessToken = '', expirationTime * 10000);
       window.history.pushState('Access Token', null, '/');
       return (accessToken);
@@ -59,11 +60,6 @@ let Spotify = {
       console.log('Fetching access token from ' + fetchAccessTokenURL);
 
     }
-
-
-
-
-
   },
 
   /*
@@ -82,10 +78,12 @@ let Spotify = {
       const fetchURL = 'https://api.spotify.com/v1/search?type=track&limit=10&q=' + term;
       const headerInfo = {headers: {Authorization: 'Bearer ' + accessToken}};
 
-      console.log('Asking for a search Promise for ', JSON.stringify(term), ' fetchURL is ' + fetchURL + ' HeaderInfo is ' + JSON.stringify(headerInfo));
+      /*
+       * Fetch search results for the search term from Spotify
+       */
       return fetch(fetchURL, headerInfo)
         .then(
-            response =>  {
+          response =>  {
             if (response.ok) {
               console.log('Response is okay in search');
               return response.json();
@@ -95,26 +93,26 @@ let Spotify = {
         ) /* end then */
         .then(
            jsonResponse => {
-              console.log('In Spotify search');
-              console.log(JSON.stringify(jsonResponse));
-              if (!jsonResponse.tracks) {
-                  return [];
-              } else {
-                  /*
-                  * Extract the track information we're interested in from the JSON response
-                  */
-                console.log('Returning JSON objects from search');
+            console.log('In Spotify search');
+            console.log(JSON.stringify(jsonResponse));
+            if (!jsonResponse.tracks) {
+              return [];
+            } else {
 
-                return jsonResponse.tracks.items.map(track => {
-                  return {
-                    id: track.id,
-                    name: track.name,
-                    artist: track.artists[0].name,
-                    album: track.album.name,
-                    uri: track.uri
-                  }
-                });
-              }
+            /*
+             * Extract the track information we're interested in from the JSON response
+            */
+
+              return jsonResponse.tracks.items.map(track => {
+                return {
+                  id: track.id,
+                  name: track.name,
+                  artist: track.artists[0].name,
+                  album: track.album.name,
+                  uri: track.uri
+                }
+              });
+            }
           }
         ) /* then */
     }
@@ -123,6 +121,15 @@ let Spotify = {
     }
   },
 
+  /*
+   * Save the current playlist tracks to Spotify. First we need to make
+   * sure that we are authorized, then we retrieve the user's ID, and from
+   * there we create a playlist of the new name, and then we can save the
+   * tracks to the playlist.  All three operations require Promises so that the next
+   * operation won't start until the previous one returns values.
+   *
+   * I'll let the console.log statements be my comments within the routine...
+   */
   savePlaylist(playlistName, tracks) {
 
     let userID = '';
@@ -192,11 +199,11 @@ let Spotify = {
                       fetch(setPlaylistTracksURL, setPlaylistTracksHeaderInfo)
                         .then(
                           response => {
-                              if (response.ok) {
-                                  console.log('Response is okay in savePlaylist');
-                                  return response.json();
-                              }
-                              throw new Error('savePlaylist request response failed!');
+                            if (response.ok) {
+                              console.log('Response is okay in savePlaylist');
+                              return response.json();
+                            }
+                            throw new Error('savePlaylist request response failed!');
                           },
                         )
                     }
@@ -209,6 +216,7 @@ let Spotify = {
     else {
       console.log('Failure to get access token in savePlaylist');
     }
+
     if (!playlistName || !tracks) {
       console.log("Error in savePlaylist -- ");
       if (!playlistName) {

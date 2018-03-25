@@ -5,6 +5,14 @@ import Playlist from '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
 import './App.css';
 
+/*
+ * Jammming app, allows you to:
+ *  -- search within spotify
+ *  -- add tracks to a play list
+ *  -- delete tracks from a play list
+ *  -- save a play list to Spotify
+ */
+
 class App extends React.Component {
 
 
@@ -37,17 +45,23 @@ class App extends React.Component {
       console.log('In addTrack ' + this.state.playlistTracks[i].name );
       if (this.state.playlistTracks[i].id === track.id) {
         found = true;
-        this.render();
         break;
       }
     }
 
-    /* If track isn't in the playlist add it */
+
+    /*
+     * If the track isn't in the playlist the new track to the playlist. We use the spread operator
+     * for efficiency to concatenate the new track to the existing array.
+     * setState must be called so that React will update the DOM with the
+     * new info and rerender the page.
+     */
 
     if (!found) {
-      console.log('Adding ' + JSON.stringify(track) + ' to the playlist');
-      console.log('Playlist is ' + JSON.stringify(this.state.playlistTracks));
-      this.state.playlistTracks.push(track);
+
+      this.setState({playlistTracks: [...this.state.playlistTracks, track]});
+
+      console.log('Added ' + JSON.stringify(track) + ' to the playlist');
       console.log('Modified playlist is ' + JSON.stringify(this.state.playlistTracks));
 
     } else {
@@ -70,9 +84,8 @@ class App extends React.Component {
       if (this.state.playlistTracks[i].id === track.id) {
         console.log('Removing track ' + track.name + ' ' + track.id);
         this.state.playlistTracks.splice(i, 1);  /* remove the track */
+        this.setState({playlistTracks: this.state.playlistTracks});
         found = true;
-        this.render();
-
         break;
       }
     }
@@ -81,18 +94,17 @@ class App extends React.Component {
     }
   }
 
+  /*
+   * Update the playlistName to the value entered in the search bar
+   */
+
   updatePlaylistName(name) {
     this.setState({playlistName: name});
-    console.log('updated play list name to ' + name + ': ' + JSON.stringify(this.state.playlistName));
-    this.render();
+    console.log('Updated playlistName to ' + name + ': ' + JSON.stringify(this.state.playlistName));
   }
 
   /*
-   * TODO: This can't be correct. Save playlist should create a set of trackURIs from
-   * our playlist, but since we haven't yet connected to Spotify, my assumption is
-   * we'll connect this up later.  For now we'll just copy the playlistTracks to the
-   * trackURIs; what we really need to do is to do a Spotify lookup to find the trackURI for each
-   * element in our playlist.
+   * Save a new playlist to Spotify
    */
 
   savePlaylist() {
@@ -106,24 +118,34 @@ class App extends React.Component {
       )
       .catch(err => console.log('Error in saving playlist:' + err));
     console.log('Playlist saved');
-    this.render();
   }
 
+  /*
+   * Search in Spotify for tracks matching the search term.
+   */
   search(searchTerm) {
+
     console.log('searching ' + searchTerm);
+
+    /*
+     * Retrieve the search results from the Spotify API (through a Promise)
+     * Update the state with the new results. setState must be called so
+     * React will update the DOM/virtualDOM and display the search results immediately.
+     */
     Spotify.search(searchTerm)
       .then(results => this.setState({ searchResults: results}))
       .catch(err => console.log('Error retrieving search results:' + err));
+
     console.log('After searching, search Results are ' + JSON.stringify(this.state.searchResults));
-    this.render();
   }
 
   render() {
 
     /*
-     * Get an access token if we don't already have one, because it will make the
-     * UI/UX so much better. Otherwise, the first time we perform a function we
-     * have to do it twice.
+     * TODO: Get an access token if we don't already have one, because it will make the
+     * UI/UX so much better. Otherwise, the first time we try to do anything with the Spotify
+     * API (either search or update playlist), we'll get an error because we try to access before
+     * the authorization has returned.
      */
 
 

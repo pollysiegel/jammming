@@ -31,7 +31,6 @@ class Track extends React.Component {
     /* Remove this track from the playlist */
 
     removeTrack() {
-        console.log('Removing track');
         this.props.onRemove(this.props.track);
     }
 

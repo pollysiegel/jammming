@@ -42,7 +42,6 @@ class App extends React.Component {
     console.log('looking for track ' + track.name);
 
     for (let i = 0; i < this.state.playlistTracks.length; i++) {
-      console.log('In addTrack ' + this.state.playlistTracks[i].name );
       if (this.state.playlistTracks[i].id === track.id) {
         found = true;
         break;
@@ -61,9 +60,6 @@ class App extends React.Component {
 
       this.setState({playlistTracks: [...this.state.playlistTracks, track]});
 
-      console.log('Added ' + JSON.stringify(track) + ' to the playlist');
-      console.log('Modified playlist is ' + JSON.stringify(this.state.playlistTracks));
-
     } else {
       console.log('Track ' + track.name + ' is already in the playlist. Skipping');
     }
@@ -79,10 +75,8 @@ class App extends React.Component {
 
     let found = false;
 
-    console.log('Removing track ' + track.name + ' ' + track.id);
     for (let i = 0; i < this.state.playlistTracks.length; i++) {
       if (this.state.playlistTracks[i].id === track.id) {
-        console.log('Removing track ' + track.name + ' ' + track.id);
         this.state.playlistTracks.splice(i, 1);  /* remove the track */
         this.setState({playlistTracks: this.state.playlistTracks});
         found = true;
@@ -90,7 +84,7 @@ class App extends React.Component {
       }
     }
     if (!found) {
-      console.log('In removeTrack, did not find ' + track.name);
+      console.log('Did not find ' + track.name);
     }
   }
 
@@ -108,16 +102,13 @@ class App extends React.Component {
    */
 
   savePlaylist() {
-    console.log('Saving Playlist named ' + this.state.playlistName);
     this.state.playlistTracks.map(track => this.state.trackUris.push(track.uri));
-    console.log('Tracks to save are ' + JSON.stringify(this.state.trackUris));
     Spotify.savePlaylist(this.state.playlistName, this.state.trackUris)
       .then(
         this.updatePlaylistName('New Playlist'),
         this.setState({searchResults: []})
       )
       .catch(err => console.log('Error in saving playlist:' + err));
-    console.log('Playlist saved');
   }
 
   /*
@@ -125,7 +116,6 @@ class App extends React.Component {
    */
   search(searchTerm) {
 
-    console.log('searching ' + searchTerm);
 
     /*
      * Retrieve the search results from the Spotify API (through a Promise)
@@ -136,7 +126,6 @@ class App extends React.Component {
       .then(results => this.setState({ searchResults: results}))
       .catch(err => console.log('Error retrieving search results:' + err));
 
-    console.log('After searching, search Results are ' + JSON.stringify(this.state.searchResults));
   }
 
   render() {

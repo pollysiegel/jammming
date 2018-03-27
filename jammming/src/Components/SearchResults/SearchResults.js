@@ -7,7 +7,6 @@ import './SearchResults.css';
  */
 class SearchResults extends React.Component {
   render() {
-    /* console.log('In SearchResults -- tracks is ' + JSON.stringify(this.props.searchResults)); */
     if (this.props.searchResults.length === 0) {
       return (
         <div className="SearchResults">

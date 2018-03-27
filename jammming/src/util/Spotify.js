@@ -57,7 +57,6 @@ let Spotify = {
       */
 
       window.location = fetchAccessTokenURL;
-      console.log('Fetching access token from ' + fetchAccessTokenURL);
 
     }
   },
@@ -85,7 +84,6 @@ let Spotify = {
         .then(
           response =>  {
             if (response.ok) {
-              console.log('Response is okay in search');
               return response.json();
             }
             throw new Error('Search request response failed!');
@@ -93,8 +91,6 @@ let Spotify = {
         ) /* end then */
         .then(
            jsonResponse => {
-            console.log('In Spotify search');
-            console.log(JSON.stringify(jsonResponse));
             if (!jsonResponse.tracks) {
               return [];
             } else {
@@ -138,17 +134,12 @@ let Spotify = {
     const getUIDHeaderInfo = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'GET'};
     const setPlaylistHeaderInfo = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'POST', body: JSON.stringify({'name': playlistName})}
 
-    console.log(getUIDHeaderInfo);
 
     if (accessToken) {
-      console.log('Saving playlist for ' + playlistName + ' with tracks ' + JSON.stringify(tracks) + accessToken);
-      console.log('Asking for a Promise for ', JSON.stringify(playlistName), ' fetchUseridURL is ' + fetchUseridURL + ' HeaderInfo is ' + JSON.stringify(getUIDHeaderInfo));
-
 
         return fetch(fetchUseridURL, getUIDHeaderInfo).then(
           response =>  {
             if (response.ok) {
-              console.log('Response is okay in savePlaylist');
               return response.json();
             }
             throw new Error('savePlaylist request response failed!' + JSON.stringify(response));
@@ -156,10 +147,7 @@ let Spotify = {
         ) /* end then */
         .then(
           jsonResponse => {
-            console.log('In Spotify savePlaylist');
-            console.log(JSON.stringify(jsonResponse));
             if (!jsonResponse.id) {
-              console.log('Did not receive an ID from savePlaylist');
               return '';
             } else {
               /*
@@ -169,15 +157,10 @@ let Spotify = {
               userID=jsonResponse.id;
               const setPlaylistURL = 'https://api.spotify.com/v1/users/' + userID + '/playlists?' + JSON.stringify(playlistName);
 
-              console.log('Returning JSON objects from URL: ' + setPlaylistURL);
-              console.log('Header info is ' + setPlaylistHeaderInfo);
-
               fetch(setPlaylistURL, setPlaylistHeaderInfo)
                 .then (
                   response => {
-                    console.log('Saved playlist to Spotify ' + playlistName);
                     if (response.ok) {
-                      console.log('Response is okay in savePlaylist');
                       return response.json();
                     }
                     throw new Error('savePlaylist request response failed!');
@@ -185,14 +168,10 @@ let Spotify = {
                 )
                 .then(
                   jsonResponsePlaylist => {
-                    console.log('In Spotify savePlaylist, saving tracks ');
-                    console.log(JSON.stringify(jsonResponsePlaylist));
                     if (!jsonResponsePlaylist.id) {
-                      console.log('Did not receive a playlistID from Spotify');
                       return '';
                     } else {
                       const playlistID = jsonResponsePlaylist.id;
-                      console.log('Setting tracks for ' + playlistName + ': ' +  playlistID);
                       const setPlaylistTracksURL = 'https://api.spotify.com/v1/users/' + userID + '/playlists/' + playlistID + '/tracks';
                       const setPlaylistTracksHeaderInfo = {headers: {Authorization: 'Bearer ' + accessToken}, method: 'POST', body: JSON.stringify({'uris': tracks})};
 
@@ -200,7 +179,6 @@ let Spotify = {
                         .then(
                           response => {
                             if (response.ok) {
-                              console.log('Response is okay in savePlaylist');
                               return response.json();
                             }
                             throw new Error('savePlaylist request response failed!');

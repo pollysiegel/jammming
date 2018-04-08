@@ -6,7 +6,7 @@ The basic app first authenticates with Spotify, and then allows you to search fo
 The app is deployed at http://coda.surge.sh.  Although the course is over, I am still working on enhancing the app/fixing bugs, and continue to push out changes from time to time.
 
 ## Jammming Feature Extension -- Final Capstone Project
--- Spec can be downloaded from the repository as a PDF: 
+-- Spec can be downloaded from the repository as a PDF (please download it rather than reading it within github, because some of the links won't work within github): 
  https://github.com/pollysiegel/jammming/blob/master/jammming-feature-request-polly-siegel.pdf
 
 # Notes on the project
